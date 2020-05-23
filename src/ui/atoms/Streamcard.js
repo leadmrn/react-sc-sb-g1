@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const StreamcardWrapper = styled.div`
@@ -8,11 +8,36 @@ const StreamcardWrapper = styled.div`
   font-size: 16px;
   width: 350px;
   font-family: 'Helvetica Neue';
-  margin: auto;
+`;
+
+const StreamcardDivPic = styled.div`
+  position: relative;
 `;
 
 const StreamcardPicture = styled.img`
   width: 100%;
+`;
+
+const StreamcardLive = styled.span`
+  background: #D93528;
+  padding: 5px 7px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border-radius: 7px;
+  font-weight: bold;
+  font-size: 12px;
+`;
+
+const StreamcardSpec = styled.span`
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  border-radius: 7px;
+  font-weight: bold;
+  font-size: 12px;
 `;
 
 const StreamcardInfos = styled.div`
@@ -64,10 +89,14 @@ const StreamcardCategory = styled.span`
 
 
 const Streamcard = props => {
-  const { name, title, game, online, picture, picProfil, category } = props;
+  const { name, title, game, online, picture, picProfil, category, nbSpec } = props;
   return (
     <StreamcardWrapper online={online} >
-      <StreamcardPicture src={picture} />
+      <StreamcardDivPic>
+        <StreamcardPicture src={picture} />
+        {online ? <StreamcardLive>LIVE</StreamcardLive> : ''}
+        {online ? <StreamcardSpec>{nbSpec} spectateurs</StreamcardSpec> : ''}
+      </StreamcardDivPic>
       <StreamcardInfos>
         <StreamcardProfilePic src={picProfil} />
         <StreamcardTexts>
@@ -77,7 +106,6 @@ const Streamcard = props => {
           <StreamcardCategory>{category}</StreamcardCategory>
         </StreamcardTexts>
       </StreamcardInfos>
-      {/* {online ? 'cc' : ''} */}
     </StreamcardWrapper>
   );
 };
